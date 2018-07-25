@@ -1,0 +1,19 @@
+{
+  "name": "yelpcamp",
+  "version": "1.0.0",
+  "description": "A Node.js app created along with \"The Web Developer Bootcamp\" by Colt Steele on Udemy.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aletrianti/yelpcamp.git"
+  },
+  "author": "Alessia Trianti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aletrianti/yelpcamp/issues"
+  },
+  "homepage": "https://github.com/aletrianti/yelpcamp#readme"
+}
