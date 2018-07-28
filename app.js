@@ -18,6 +18,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Recognise every page rendered as an ejs page
 app.set("view engine", "ejs");
 
+// Use CSS file in the public directory
+app.use(express.static(__dirname + "/public"));
+
 // Call seedsDB() from seeds.js
 seedsDB();
 
