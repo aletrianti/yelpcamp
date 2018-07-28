@@ -10,7 +10,7 @@ var data = [
     },
     {
         name: "Mountain Adventure", 
-        image: "https://images.pexels.com/photos/1061640/pexels-photo-1061640.jpeg?cs=srgb&dl=bonfire-camp-campfire-1061640.jpg&fm=jpg",
+        image: "https://images.pexels.com/photos/939723/pexels-photo-939723.jpeg?cs=srgb&dl=adventure-camp-clouds-939723.jpg&fm=jpg",
         description: "A place where you can only do one thing: relax."
     },
     {

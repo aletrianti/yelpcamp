@@ -35,18 +35,18 @@ app.get("/campgrounds", function(req, res) {
             console.log("Oops, something went wrong!");
             console.log(error);
         } else {
-            res.render("index", {campgrounds: allCampgrounds});
+            res.render("campgrounds/index", {campgrounds: allCampgrounds});
         }
     });
 });
 
 // Post a new campground
 app.post("/campgrounds", function(req, res) {
-    // Get info from the form in new.ejs and add the new camp to the array
+    // Get info from the form in campgrounds/new.ejs and add the new camp to the array
     var name = req.body.name;
     var image = req.body.image;
     var description = req.body.description;
-    var newCamp = {name: name, image: image, description: description}
+    var newCamp = {name: name, image: image, description: description};
 
     // Add a new campground to db
     Campground.create(newCamp, function(error, newlyCreated) {
@@ -62,7 +62,7 @@ app.post("/campgrounds", function(req, res) {
 
 // Render 'new campgrounds' page
 app.get("/campgrounds/new", function(req, res) {
-    res.render("new");
+    res.render("campgrounds/new");
 });
 
 // Show info about a campground
@@ -74,7 +74,43 @@ app.get("/campgrounds/:id", function(req, res) {
             console.log(error);
         } else {
             // Render show template with the campground
-            res.render("show", {campground: foundCampground});
+            res.render("campgrounds/show", {campground: foundCampground});
+        }
+    });
+});
+
+// Create new comments
+app.get("/campgrounds/:id/comments/new", function(req, res) {
+    // Find campground with its id
+    Campground.findById(req.params.id, function(error, campground) {
+        if (error) {
+            console.log("Oops, something went wrong!");
+            console.log(error);
+        } else {
+            // Render show template with the campground
+            res.render("comments/new", {campground: campground});
+        }
+    });
+});
+
+// Post the new comment
+app.post("/campgrounds/:id/comments", function(req, res) {
+    Campground.findById(req.params.id, function(error, campground) {
+        if (error) {
+            console.log("Oops, something went wrong!");
+            res.redirect("/campgrounds");
+        } else {
+            // Add a new comment to db
+            Comment.create(req.body.comment, function(error, comment) {
+                if (error) {
+                    console.log("Oops, something went wrong!");
+                    console.log(error);
+                } else {
+                    campground.comments.push(comment);
+                    campground.save();
+                    res.redirect("/campgrounds/" + campground._id);
+                }
+            });
         }
     });
 });
