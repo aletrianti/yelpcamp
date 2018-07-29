@@ -154,6 +154,17 @@ app.post("/register", function(req, res) {
     });
 });
 
+app.get("/login", function(req, res) {
+    res.render("login");
+});
+                // middleware
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/campgrounds",
+    failureRedirect: "/login"
+}), function(req, res) {
+    
+});
+
 
 
 // Start the server (http://localhost:3000) and create a callback function
