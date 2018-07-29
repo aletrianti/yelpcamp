@@ -41,6 +41,11 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
+
 
 // Render landing page
 app.get("/", function(req, res) {
@@ -100,7 +105,7 @@ app.get("/campgrounds/:id", function(req, res) {
 });
 
 // Create new comments
-app.get("/campgrounds/:id/comments/new", function(req, res) {
+app.get("/campgrounds/:id/comments/new", isLoggedIn, function(req, res) {
     // Find campground with its id
     Campground.findById(req.params.id, function(error, campground) {
         if (error) {
@@ -114,7 +119,7 @@ app.get("/campgrounds/:id/comments/new", function(req, res) {
 });
 
 // Post the new comment
-app.post("/campgrounds/:id/comments", function(req, res) {
+app.post("/campgrounds/:id/comments", isLoggedIn, function(req, res) {
     Campground.findById(req.params.id, function(error, campground) {
         if (error) {
             console.log("Oops, something went wrong!");
@@ -157,7 +162,7 @@ app.post("/register", function(req, res) {
 app.get("/login", function(req, res) {
     res.render("login");
 });
-                // middleware
+                
 app.post("/login", passport.authenticate("local", {
     successRedirect: "/campgrounds",
     failureRedirect: "/login"
@@ -169,6 +174,14 @@ app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/campgrounds");
 });
+
+// middleware
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
 
 
 
