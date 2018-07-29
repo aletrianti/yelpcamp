@@ -165,6 +165,11 @@ app.post("/login", passport.authenticate("local", {
     
 });
 
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/campgrounds");
+});
+
 
 
 // Start the server (http://localhost:3000) and create a callback function
