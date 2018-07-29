@@ -28,6 +28,19 @@ app.use(express.static(__dirname + "/public"));
 // Call seedsDB() from seeds.js
 seedsDB();
 
+// Passport config
+app.use(require("express-session")({
+    secret: "YelpCamp is awesome!",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 
 // Render landing page
 app.get("/", function(req, res) {
@@ -121,6 +134,27 @@ app.post("/campgrounds/:id/comments", function(req, res) {
         }
     });
 });
+
+// Auth routes
+
+app.get("/register", function(req, res) {
+    res.render("register");
+});
+
+app.post("/register", function(req, res) {
+    User.register(new User({username: req.body.username}), req.body.password, function(error, user) {
+        if (error) {
+            console.log(error);
+            return res.render("/register");
+        } else {
+            passport.authenticate("local")(req, res, function() {
+                res.redirect("/campgrounds");
+            });
+        }
+    });
+});
+
+
 
 // Start the server (http://localhost:3000) and create a callback function
 app.listen(3000, function() {
