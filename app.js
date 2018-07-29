@@ -5,8 +5,12 @@ var express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
+    passport = require("passport"),
+    LocalStrategy = require("passport-local"),
+    passportLocalMongoose = require("passport-local-mongoose");
     Campground = require("./models/campgrounds"),
     Comment = require("./models/comments"),
+    User = require("./models/users"),
     seedsDB = require("./seeds");
 
 // Connect to db
