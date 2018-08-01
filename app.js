@@ -5,6 +5,7 @@ var express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
+    methodOverride = require("method-override"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
     passportLocalMongoose = require("passport-local-mongoose");
@@ -29,6 +30,9 @@ app.set("view engine", "ejs");
 
 // Use CSS file in the public directory
 app.use(express.static(__dirname + "/public"));
+
+// Use method-override
+app.use(methodOverride("_method"));
 
 // Call seedsDB() from seeds.js
 // seedsDB();
