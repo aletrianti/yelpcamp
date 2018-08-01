@@ -34,7 +34,7 @@ router.post("/", isLoggedIn, function(req, res) {
             console.log(error);
         } else {
             // Redirect to this page (/campgrounds)
-            res.redirect("/campgrounds");
+            res.redirect("campgrounds");
         }
     });
 });
@@ -73,7 +73,18 @@ router.get("/:id/edit", function(req, res) {
 });
 
 // Update campground
-
+router.put("/:id", function(req, res) {
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(error, editedCamground) {
+        if (error) {
+            console.log("Oops, something went wrong!");
+            console.log(error);
+            res.redirect("/campgrounds");
+        } else {
+            // Render edit template
+            res.redirect("/campgrounds/" + req.params.id);
+        }
+    });
+});
 
 // middleware
 function isLoggedIn(req, res, next) {
