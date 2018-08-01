@@ -86,6 +86,19 @@ router.put("/:id", function(req, res) {
     });
 });
 
+// Destroy (delete) campground
+router.delete("/:id", function(req, res) {
+    Campground.findByIdAndRemove(req.params.id, function(error) {
+        if(error){
+            console.log("Oops, something went wrong!");
+            console.log(error);
+            res.redirect("/campgrounds");
+        } else {
+            res.redirect("/campgrounds");
+        }
+    });
+});
+
 // middleware
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
