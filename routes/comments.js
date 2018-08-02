@@ -50,13 +50,20 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 
 // Edit comment
 router.get("/:comment_id/edit", middleware.checkCommentOwner, function(req, res) {
-    Comment.findById(req.params.comment_id, function(error, foundComment){
-        if(error){
-            res.redirect("back");
-        } else {
-          res.render("comments/edit", {campground_id: req.params.id, comment: foundComment});
+    Campground.findById(req.params.id, function(error, foundCampground) {
+        if (error || !foundCampground) {
+            req.flash("error", "Campground not found");
+            return res.redirect("back");
         }
-     });
+        Comment.findById(req.params.comment_id, function(error, foundComment){
+            if(error){
+                req.flash("error", "Comment not found");
+                res.redirect("back");
+            } else {
+              res.render("comments/edit", {campground_id: req.params.id, comment: foundComment});
+            }
+        });
+    });
 });
 
 // Update comment

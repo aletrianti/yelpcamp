@@ -15,7 +15,7 @@ middlewareObject.isLoggedIn = function(req, res, next) {
 middlewareObject.checkCampgroundOwner = function(req, res, next) {
     if (req.isAuthenticated()) {
         Campground.findById(req.params.id, function(error, viewedCampground) {
-            if (error) {
+            if (error || !viewedCampground) {
                 console.log("Oops, something went wrong!");
                 console.log(error);
                 req.flash("error", "Campground not found");
@@ -42,6 +42,7 @@ middlewareObject.checkCommentOwner = function(req, res, next) {
             if (error) {
                 console.log("Oops, something went wrong!");
                 console.log(error);
+                req.flash("error", "Comment not found");
                 res.redirect("back");
             } else {
                 // check if the author of the comment has the same id as the user
