@@ -59,7 +59,7 @@ router.get("/:id", function(req, res) {
 });
 
 // Edit campground
-router.get("/:id/edit", checkOwnership, function(req, res) {
+router.get("/:id/edit", checkCampgroundOwner, function(req, res) {
     Campground.findById(req.params.id, function(error, viewedCampground) {
         // Render edit template
         res.render("campgrounds/edit", {campground: viewedCampground});
@@ -67,7 +67,7 @@ router.get("/:id/edit", checkOwnership, function(req, res) {
 });
 
 // Update campground
-router.put("/:id", checkOwnership, function(req, res) {
+router.put("/:id", checkCampgroundOwner, function(req, res) {
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(error, editedCamground) {
         if (error) {
             console.log("Oops, something went wrong!");
@@ -81,7 +81,7 @@ router.put("/:id", checkOwnership, function(req, res) {
 });
 
 // Destroy (delete) campground
-router.delete("/:id", checkOwnership, function(req, res) {
+router.delete("/:id", checkCampgroundOwner, function(req, res) {
     Campground.findByIdAndRemove(req.params.id, function(error) {
         if(error){
             console.log("Oops, something went wrong!");
@@ -101,7 +101,7 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login");
 }
 
-function checkOwnership(req, res, next) {
+function checkCampgroundOwner(req, res, next) {
     if (req.isAuthenticated()) {
         Campground.findById(req.params.id, function(error, viewedCampground) {
             if (error) {
