@@ -35,6 +35,9 @@ app.use(express.static(__dirname + "/public"));
 // Use method-override
 app.use(methodOverride("_method"));
 
+// Use connect-flash
+app.use(flash());
+
 // Call seedsDB() from seeds.js
 // seedsDB();
 
@@ -53,6 +56,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 
