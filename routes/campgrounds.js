@@ -20,13 +20,14 @@ router.get("/", function(req, res) {
 router.post("/", middleware.isLoggedIn, function(req, res) {
     // Get info from the form in campgrounds/new.ejs and add the new camp to the array
     var name = req.body.name,
+        price = req.body.price,
         image = req.body.image,
         description = req.body.description,
         author = {
             id: req.user._id,
             username: req.user.username
         }
-        newCamp = {name: name, image: image, description: description, author: author};
+        newCamp = {name: name, price: price, image: image, description: description, author: author};
 
     // Add a new campground to db
     Campground.create(newCamp, function(error, newlyCreated) {
