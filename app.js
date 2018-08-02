@@ -38,6 +38,9 @@ app.use(methodOverride("_method"));
 // Use connect-flash
 app.use(flash());
 
+// Use MomentJS
+app.locals.moment = require('moment');
+
 // Call seedsDB() from seeds.js
 // seedsDB();
 
