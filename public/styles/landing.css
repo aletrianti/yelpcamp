@@ -1,0 +1,79 @@
+/* CUSTOM CSS FOR THE LANDING PAGE */
+
+body { background-color: #000; }
+
+#landing-header {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    padding-top: 40vh;
+}
+
+    #landing-header h1 { color: #fff; }
+
+.slideshow { 
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    .slideshow li {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-size: cover;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        opacity: 0;
+        z-index: 0;
+        animation: animation 50s linear infinite;
+}
+
+    .slideshow li:nth-child(1) { 
+        background-image: url(https://images.pexels.com/photos/1061640/pexels-photo-1061640.jpeg?cs=srgb&dl=bonfire-camp-campfire-1061640.jpg&fm=jpg);
+    }
+    .slideshow li:nth-child(2) { 
+        background-image: url(https://images.pexels.com/photos/699558/pexels-photo-699558.jpeg?cs=srgb&dl=adventure-camp-camping-699558.jpg&fm=jpg);
+        animation-delay: 10s; 
+    }
+    .slideshow li:nth-child(3) { 
+        background-image: url(https://images.pexels.com/photos/803226/pexels-photo-803226.jpeg?cs=srgb&dl=camping-clouds-dawn-803226.jpg&fm=jpg);
+        animation-delay: 20s; 
+    }
+    .slideshow li:nth-child(4) { 
+        background-image: url(https://images.pexels.com/photos/6714/light-forest-trees-morning.jpg?cs=srgb&dl=adventure-camping-forest-6714.jpg&fm=jpg);
+        animation-delay: 30s; 
+    }
+    .slideshow li:nth-child(5) { 
+        background-image: url(https://images.pexels.com/photos/5921/wood-holiday-vacation-garden.jpg?cs=srgb&dl=camping-chair-container-5921.jpg&fm=jpg);
+        animation-delay: 40s; 
+    }
+
+    @keyframes animation { 
+        0% { 
+          opacity: 0; 
+          animation-timing-function: ease-in;
+        }
+        10% {
+          opacity: 1;
+          animation-timing-function: ease-out;
+        }
+        20% {
+          opacity: 1;
+        }
+        30% {
+          opacity: 0;
+        }
+    }
+
+    .no-cssanimations .slideshow li {
+        opacity: 1;
+    }
