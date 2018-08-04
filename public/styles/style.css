@@ -1,9 +1,13 @@
 /* CUSTOM CSS */
 
+#welcome-h1 { padding: 0 20px; }
+
 .thumbnail { padding: 0; }
 
     .thumbnail img { width: 100%; }
 
     .thumbnail .caption-full { padding: 9px; }
+
+.btn-margin { margin-bottom: 20px; }
 
 .delete-form { display: inline-block; }
